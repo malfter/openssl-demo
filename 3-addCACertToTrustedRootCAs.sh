@@ -10,6 +10,6 @@ echo "sudo apt install -y ca-certificates"
 echo "sudo cp "${CA_NAME}/${CA_NAME}.crt" /usr/local/share/ca-certificates"
 echo "sudo update-ca-certificates"
 echo
-echo "# Feora/CentOS"
+echo "# Fedora/CentOS"
 echo "sudo cp "${CA_NAME}/${CA_NAME}.crt" /etc/pki/ca-trust/source/anchors/${CA_NAME}.crt"
 echo "sudo update-ca-trust"

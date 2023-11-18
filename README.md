@@ -88,7 +88,7 @@ openssl s_client -connect myserver.de:443
 CheckSubject Alternative Names:
 
 ```bash
-openssl s_client -connect alfter-web.de:443 </dev/null 2>/dev/null \
+openssl s_client -connect myserver.de:443 </dev/null 2>/dev/null \
   | openssl x509 -noout -text | grep DNS:
 ```
 
