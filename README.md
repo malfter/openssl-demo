@@ -82,13 +82,13 @@ openssl req -noout -modulus -in myserver/myserver.csr | openssl md5
 Check a SSL connection. All the certificates (including Intermediates) should be displayed:
 
 ```bash
-openssl s_client -connect myserver.de:443
+openssl s_client -connect myserver.local:443
 ```
 
 CheckSubject Alternative Names:
 
 ```bash
-openssl s_client -connect myserver.de:443 </dev/null 2>/dev/null \
+openssl s_client -connect myserver.local:443 </dev/null 2>/dev/null \
   | openssl x509 -noout -text | grep DNS:
 ```
 
