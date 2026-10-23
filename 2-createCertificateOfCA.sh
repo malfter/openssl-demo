@@ -23,4 +23,7 @@ CA_ORG_UNIT_NAME="Some Unit"
 CA_EMAIL=admin@myorg.de
 
 openssl req -x509 -new -nodes -key "${CA_NAME}.key" -sha256 -days "$_5_YEARS" -out "${CA_NAME}.crt" \
+  -addext "basicConstraints=critical,CA:TRUE" \
+  -addext "keyUsage=critical,keyCertSign,cRLSign" \
+  -addext "subjectKeyIdentifier=hash" \
   -subj "/CN=${CA_COMMON_NAME}/C=${CA_COUNTRY_NAME}/ST=${CA_STATE}/L=${CA_LOCALITY_NAME}/O=${CA_ORG_NAME}/OU=${CA_ORG_UNIT_NAME}/emailAddress=${CA_EMAIL}"
