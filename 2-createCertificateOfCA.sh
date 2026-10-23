@@ -1,8 +1,15 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 CA_NAME=MyOrg-RootCA
 
-cd $CA_NAME || exit
+cd "${CA_NAME}"
+
+# Never overwrite an existing CA certificate
+if [ -e "${CA_NAME}.crt" ]; then
+  echo "[ERROR] '${CA_NAME}/${CA_NAME}.crt' already exists, refusing to overwrite it" >&2
+  exit 1
+fi
 
 # 5 years = 1826 days
 _5_YEARS=1826

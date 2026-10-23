@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 MY_CERT=myserver
 MY_CERT_COMMON_NAME="My Server"
@@ -9,10 +10,16 @@ MY_CERT_ORG_NAME=MyOrg
 MY_CERT_ORG_UNIT_NAME="IT Unit"
 MY_CERT_EMAIL=admin@myserver.de
 
-mkdir $MY_CERT
-cd $MY_CERT || exit
+# Never overwrite an existing certificate directory (and its private key)
+if [ -e "${MY_CERT}" ]; then
+  echo "[ERROR] '${MY_CERT}' already exists, refusing to overwrite the server key" >&2
+  exit 1
+fi
 
-openssl req -new -nodes -out ${MY_CERT}.csr -newkey rsa:4096 -keyout ${MY_CERT}.key \
+mkdir "${MY_CERT}"
+cd "${MY_CERT}"
+
+openssl req -new -nodes -out "${MY_CERT}.csr" -newkey rsa:4096 -keyout "${MY_CERT}.key" \
   -subj "/CN=${MY_CERT_COMMON_NAME}/C=${MY_CERT_COUNTRY_NAME}/ST=${MY_CERT_STATE}/L=${MY_CERT_LOCALITY_NAME}/O=${MY_CERT_ORG_NAME}/OU=${MY_CERT_ORG_UNIT_NAME}/emailAddress=${MY_CERT_EMAIL}"
 
 # create a v3 ext file for SAN properties
